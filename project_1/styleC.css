@@ -1,0 +1,28 @@
+@keyframes bobble {
+    0% {
+        transform: translate3d(50px, 40px, 0px);
+        animation-timing-function: ease-in;
+    }
+    50% {
+        transform: translate3d(50px, 100px, 0px);
+        animation-timing-function: ease-out;
+    }
+    100% {
+        transform: translate3d(50px, 40px, 0px);
+        animation-timing-function: ease-out;
+    }
+}
+
+
+
+div:nth-last-child(1) {
+    animation: bobble 2s infinite;
+}
+
+div:hover {
+    font-size: 100pt
+}
+
+div {
+    transition: font-size 2s;
+}
