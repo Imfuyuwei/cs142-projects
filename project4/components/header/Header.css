@@ -1,0 +1,9 @@
+/*
+CSS for the header component.
+
+naming convention: header-_____
+*/
+
+#header-container {
+    width: 100%;
+}
