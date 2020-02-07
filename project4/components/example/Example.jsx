@@ -111,7 +111,7 @@ class Example extends React.Component {
         <div className="motto-update">
           {`${this.state.name}'s motto is: ${this.state.motto}`}
           <br></br>
-          Or change it here: 
+          Change it here: 
            <br></br>
           <input id="mottoInput" type="text" value={this.state.motto} onChange={event => this.handleMottoChange(event)} />
         </div>

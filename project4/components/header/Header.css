@@ -5,5 +5,27 @@ naming convention: header-_____
 */
 
 #header-container {
+    display: flex;
+    align-items: center;
     width: 100%;
+    border-bottom: 10px dotted #ff351c;
+}
+
+.header-my-logo {
+    width: 50px;
+    margin: 20px;
+}
+
+.header-phrase {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 2em;
+    color: #FF351C;
+    white-space: nowrap;
+}
+
+.header-rectangle {
+    background-color: #FDBE02;
+    width: 100%;
+    height: 30px;
+    margin: 40px;
 }

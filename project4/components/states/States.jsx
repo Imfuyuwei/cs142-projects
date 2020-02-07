@@ -23,12 +23,16 @@ class States extends React.Component {
     //use window.cs142models.statesModel();
     return (
       <div className="cs-142-states-container">
-        <h1>This will list all states with the specificed substring, "{`${this.state.substring}`}".</h1>
+        <h1>This will list all states with the specificed substring, &quot;{`${this.state.substring}`}&quot;.</h1>
         <h2> Note: this is case insensitive.</h2>
-        <input id="cs-142-states-filterInput" type="text" value={this.state.substring} onChange={event => this.handleFilterChange(event)} />
+        <input id="cs-142-states-filterInput" type="text" 
+          value={this.state.substring} 
+          onChange={event => this.handleFilterChange(event)} />
         <h2>Result:</h2>
         <div id="cs-142-states-list">
-          {window.cs142models.statesModel().filter((state) => state.toLowerCase().includes(this.state.substring.toLowerCase())).map((state) => <div>{state}</div>)}
+          {window.cs142models.statesModel().filter(
+            (state) => state.toLowerCase().includes(this.state.substring.toLowerCase())).map(
+              (state) => <div key={state}>{state}</div>)}
         </div>
       </div>
     );
