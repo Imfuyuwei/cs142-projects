@@ -20,7 +20,11 @@ class States extends React.Component {
   }
 
   render() {
-    //use window.cs142models.statesModel();
+    var results = window.cs142models.statesModel().filter(
+      (state) => state.toLowerCase().includes(this.state.substring.toLowerCase())).map(
+        (state) => <div key={state}>{state}</div>);
+    
+
     return (
       <div className="cs-142-states-container">
         <h1>This will list all states with the specificed substring, &quot;{`${this.state.substring}`}&quot;.</h1>
@@ -30,9 +34,7 @@ class States extends React.Component {
           onChange={event => this.handleFilterChange(event)} />
         <h2>Result:</h2>
         <div id="cs-142-states-list">
-          {window.cs142models.statesModel().filter(
-            (state) => state.toLowerCase().includes(this.state.substring.toLowerCase())).map(
-              (state) => <div key={state}>{state}</div>)}
+          {results.length == 0 ? `No results` : results}
         </div>
       </div>
     );
