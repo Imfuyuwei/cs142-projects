@@ -3,6 +3,12 @@ import {
   Typography
 } from '@material-ui/core';
 import './userDetail.css';
+import {
+  Link
+} from 'react-router-dom';
+
+// import {MAIN, PHOTOS, DETAILS} from '../../constants';
+const DETAILS = "Info about ";
 
 
 /**
@@ -11,17 +17,41 @@ import './userDetail.css';
 class UserDetail extends React.Component {
   constructor(props) {
     super(props);
+    let newUser = window.cs142models.userModel(props.match.params.userId);
+    this.state = {
+      user: newUser
+    }
+    this.props.changeView(DETAILS, `${newUser.first_name} ${newUser.last_name}`);
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.match.params.userId !== this.props.match.params.userId) {
+      let newUser = window.cs142models.userModel(this.props.match.params.userId);
+      this.setState({user: newUser})
+      this.props.changeView(DETAILS, `${newUser.first_name} ${newUser.last_name}`);
+    }
   }
 
   render() {
     return (
-      <Typography variant="body1">
-        This should be the UserDetail view of the PhotoShare app. Since
-        it is invoked from React Router the params from the route will be
-        in property match. So this should show details of user:
-        {this.props.match.params.userId}. You can fetch the model for the
-        user from window.cs142models.userModel(userId).
-      </Typography>
+      <div>
+        <Typography variant="h3">
+            {`${this.state.user.first_name} ${this.state.user.last_name}`}
+        </Typography>
+
+          <Typography variant="h5">
+            {this.state.user.location} <br/>
+            {this.state.user.occupation}
+          </Typography>
+          <Typography variant="body1">
+            {this.state.user.description}
+          </Typography>
+          <Link 
+            to={`/photos/${this.state.user._id}`}>
+            See photos
+          </Link>
+      </div>
+      
     );
   }
 }
