@@ -1,15 +1,8 @@
-import React from 'react';
-import {
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-}
-from '@material-ui/core';
-import {
-  Link
-} from 'react-router-dom';
-import './userList.css';
+import React from "react";
+import { Divider, List, ListItem, ListItemText } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import "./userList.css";
+import fetchModel from "../../lib/fetchModelData";
 
 /**
  * Define UserList, a React componment of CS142 project #5
@@ -17,24 +10,35 @@ import './userList.css';
 class UserList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      users: undefined
+    }
+    let prom = fetchModel(`http://localhost:3000/user/list`);
+    prom.then(response => {
+      this.setState({users: response.data});
+    });
   }
 
   render() {
-    return (
+    return this.state.users ? (
       <div>
         <List component="nav">
-          {window.cs142models.userListModel().map((user) => {
+          {this.state.users.map(user => {
             return (
               <Link to={`/users/${user._id}`} key={user._id}>
                 <ListItem>
-                  <ListItemText primary={`${user.first_name} ${user.last_name}`} />
+                  <ListItemText
+                    primary={`${user.first_name} ${user.last_name}`}
+                  />
                 </ListItem>
-                <Divider/>
+                <Divider />
               </Link>
             );
           })}
         </List>
       </div>
+    ) : (
+      <div />
     );
   }
 }

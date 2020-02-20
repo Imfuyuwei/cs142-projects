@@ -1,15 +1,10 @@
-import React from 'react';
-import {
-  Typography
-} from '@material-ui/core';
-import './userDetail.css';
-import {
-  Link
-} from 'react-router-dom';
+import React from "react";
+import { Grid, Typography, Button } from "@material-ui/core";
+import "./userDetail.css";
+import { Link } from "react-router-dom";
+import fetchModel from "../../lib/fetchModelData";
 
-// import {MAIN, PHOTOS, DETAILS} from '../../constants';
 const DETAILS = "Info about ";
-
 
 /**
  * Define UserDetail, a React componment of CS142 project #5
@@ -17,41 +12,64 @@ const DETAILS = "Info about ";
 class UserDetail extends React.Component {
   constructor(props) {
     super(props);
-    let newUser = window.cs142models.userModel(props.match.params.userId);
+    let newUser;
     this.state = {
       user: newUser
-    }
-    this.props.changeView(DETAILS, `${newUser.first_name} ${newUser.last_name}`);
+    };
+    let newUserID = props.match.params.userId;
+    let prom = fetchModel(`http://localhost:3000/user/${newUserID}`);
+    prom.then(response => {
+      newUser = response.data;
+      console.log(newUser);
+      this.setState({ user: response.data });
+      this.props.changeView(
+        DETAILS, `${newUser.first_name} ${newUser.last_name}`
+      );
+    });
   }
 
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.match.params.userId !== this.props.match.params.userId) {
-      let newUser = window.cs142models.userModel(this.props.match.params.userId);
-      this.setState({user: newUser})
-      this.props.changeView(DETAILS, `${newUser.first_name} ${newUser.last_name}`);
+
+
+  componentDidUpdate = () => {
+    let newUserID = this.props.match.params.userId;
+    if (this.state.user._id !== newUserID) {
+      let self = this;
+      fetchModel(`http://localhost:3000/user/${newUserID}`).then(response => {
+        let newUser = response.data;
+        self.setState({ user: newUser });
+        self.props.changeView(
+          DETAILS,
+          `${newUser.first_name} ${newUser.last_name}`
+        );
+      });
     }
-  }
+  };
 
   render() {
-    return (
-      <div>
-        <Typography variant="h3">
-            {`${this.state.user.first_name} ${this.state.user.last_name}`}
+    return this.state.user ? (
+      <Grid container
+      justify="space-evenly"
+      alignItems="center"
+      >
+        <Grid xs={6} item>
+          <Typography variant="h3">
+          {`${this.state.user.first_name} ${this.state.user.last_name}`}
         </Typography>
-
-          <Typography variant="h5">
-            {this.state.user.location} <br/>
-            {this.state.user.occupation}
-          </Typography>
-          <Typography variant="body1">
-            {this.state.user.description}
-          </Typography>
-          <Link 
-            to={`/photos/${this.state.user._id}`}>
-            See photos
-          </Link>
-      </div>
-      
+        <Typography variant="h5">
+          {this.state.user.occupation} <br />
+          based in {this.state.user.location}
+        </Typography>
+        <Typography variant="body1">{this.state.user.description}</Typography>
+        </Grid>
+        <Grid xs={4} item>
+          <Button variant="contained" size="large">
+          <Link to={`/photos/${this.state.user._id}`}>See photos</Link>
+        </Button>
+        </Grid>
+        
+      </Grid>
+    ) : (
+      <div />
     );
   }
 }
