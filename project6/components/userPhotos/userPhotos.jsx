@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import "./userPhotos.css";
-import fetchModel from "../../lib/fetchModelData";
+const axios = require('axios').default;
 
 const PHOTOS = "Photos of ";
 
@@ -21,17 +21,20 @@ class UserPhotos extends React.Component {
     super(props);
     this.state = {};
     this.userId = props.match.params.userId;
-    let prom = fetchModel(`http://localhost:3000/photosOfUser/${this.userId}`);
-    prom.then(response => {
-      this.setState({photos: response.data});
-    });
-    fetchModel(`http://localhost:3000/user/${this.userId}`).then(response => {
-      this.user = response.data;
-      this.props.changeView(
-        PHOTOS,
-        `${this.user.first_name} ${this.user.last_name}`
-      );
-    });
+    axios.get(`/photosOfUser/${this.userId}`)
+      .then(response => {
+        this.setState({photos: response.data});
+      })
+      .catch(err => {console.log(err.response)});
+    axios.get(`/user/${this.userId}`)
+      .then(response => {
+        this.user = response.data;
+        this.props.changeView(
+          PHOTOS,
+          `${this.user.first_name} ${this.user.last_name}`
+        );
+      })
+      .catch(err => console.log(err.response));
   }
   render() {
     return this.user ? (

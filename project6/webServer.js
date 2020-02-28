@@ -45,7 +45,7 @@ var express = require('express');
 var app = express();
 
 // XXX - Your submission should work without this line. Comment out or delete this line for tests and before submission!
-var cs142models = require('./modelData/photoApp.js').cs142models;
+//var cs142models = require('./modelData/photoApp.js').cs142models;
 
 mongoose.connect('mongodb://localhost/cs142project6', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -130,23 +130,43 @@ app.get('/test/:p1', function (request, response) {
  * URL /user/list - Return all the User object.
  */
 app.get('/user/list', function (request, response) {
-    response.status(200).send(cs142models.userListModel());
+    User.find({}, (err, allUsers) => {
+        let newUsers = allUsers;
+        async.eachOf(allUsers, function(user, i, callback) {
+            let {_id, first_name, last_name} = user;
+            newUsers[i] = {_id, first_name, last_name};
+            callback()
+        }, (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                response.status(200).send(newUsers)
+            }
+        })
+        
+    });
+    //console.log(users);
+    //console.log(2);
+    //response.status(200).send(cs142models.userListModel());
 });
 
 /*
  * URL /user/:id - Return the information for User (id)
- */ 
+ */
 app.get('/user/:id', function (request, response) {
     var id = request.params.id;
-    var user = cs142models.userModel(id);
-    //replace previous line with mongodb data stuff. findOne
-    if (user === null) {
-        console.log('User with _id:' + id + ' not found.');
-        response.status(400).send('Not found');
-        return;
-    }
-    
-    response.status(200).send(user);
+    User.findOne({_id: id}, (err, user) => {
+        if (err) {
+            console.log('User with _id:' + id + ' not found.');
+            response.status(400).send('Not found');
+            return;
+        }
+        console.log('oldUser: ' + user);
+        let {_id, first_name, last_name, location, description, occupation} = user;
+        let newUser = {_id, first_name, last_name, location, description, occupation};
+        
+        response.status(200).send(newUser);
+    });
 });
 
 /*
@@ -154,13 +174,48 @@ app.get('/user/:id', function (request, response) {
  */
 app.get('/photosOfUser/:id', function (request, response) {
     var id = request.params.id;
-    var photos = cs142models.photoOfUserModel(id);
-    if (photos.length === 0) {
-        console.log('Photos for user with _id:' + id + ' not found.');
-        response.status(400).send('Not found');
-        return;
-    }
-    response.status(200).send(photos);
+    Photo.find({user_id: id}, (err, photos) => {
+        if (err) {
+            console.log('Photos for user with _id:' + id + ' not found.');
+            response.status(400).send('Not found');
+            return;
+        }
+        let newPhotos = JSON.parse(JSON.stringify(photos));
+        async.eachOf(newPhotos, function(photo, i, callback) {
+            delete photo.__v;
+            async.eachOf(photo.comments, function(com, i, callback2) {
+                let the_user = User.findOne({_id: com.user_id}, (err) => {
+                    if (err) {
+                        response.status(400).send('Not found');
+                    }
+                });
+                the_user.then((user) => {
+                    let {_id, first_name, last_name} = user;
+                    photo.comments[i] = {
+                        comment: com.comment,
+                        date_time: com.date_time,
+                        _id: com._id,
+                        user: {
+                            _id: _id,
+                            first_name: first_name,
+                            last_name: last_name
+                        }
+                    }
+                    callback2();
+                });
+            }, (err) => {
+                if (err) {
+                    console.log('error occured');
+                } 
+                newPhotos[i] = photo;
+                callback();
+            })
+        }, function (err) {
+            if (!err) {
+                response.status(200).send(newPhotos);
+            }
+        });
+    });
 });
 
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Divider, List, ListItem, ListItemText } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import "./userList.css";
-import fetchModel from "../../lib/fetchModelData";
+const axios = require('axios').default;
 
 /**
  * Define UserList, a React componment of CS142 project #5
@@ -13,10 +13,11 @@ class UserList extends React.Component {
     this.state = {
       users: undefined
     }
-    let prom = fetchModel(`http://localhost:3000/user/list`);
-    prom.then(response => {
-      this.setState({users: response.data});
-    });
+    axios.get(`/user/list`)
+      .then(response => {
+        this.setState({users: response.data});
+      })
+      .catch(err => console.log(err.response));
   }
 
   render() {
