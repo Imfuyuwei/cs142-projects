@@ -1,0 +1,18 @@
+{
+  "name": "project7test",
+  "version": "1.0.0",
+  "description": "Mocha test of server API",
+  "main": "serverApiTest.js",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "request": "^2.69.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4"
+  },
+  "scripts": {
+    "test": "mocha serverApiTest.js sessionInputApiTest.js"
+  },
+  "author": "Mendel Rosenblum <mendel@cs.stanford.edu> (http://www.stanford.edu/~mendel)",
+  "license": "ISC"
+}
