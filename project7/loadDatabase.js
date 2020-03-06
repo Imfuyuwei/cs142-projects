@@ -63,7 +63,7 @@ Promise.all(removePromises).then(function () {
             mapFakeId2RealId[user._id] = userObj._id;
             user.objectID = userObj._id;
             console.log('Adding user:', user.first_name + ' ' + user.last_name, ' with ID ',
-                user.objectID);
+                user.objectID, 'login: ', userObj.login_name);
         }).catch(function (err){
             console.error('Error create user', err);
         });

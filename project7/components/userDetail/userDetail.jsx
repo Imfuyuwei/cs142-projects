@@ -34,7 +34,7 @@ class UserDetail extends React.Component {
     let newUserID = this.props.match.params.userId;
     if (this.state.user._id !== newUserID) {
       let self = this;
-      axios.get(`http://localhost:3000/user/${newUserID}`)
+      axios.get(`/user/${newUserID}`)
         .then(response => {
           let newUser = response.data;
           self.setState({ user: newUser });

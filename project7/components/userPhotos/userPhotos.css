@@ -5,3 +5,12 @@
 .media {
     height: 140px,
 }
+
+.add-comment {
+    width: 100%;
+    display: flex;
+}
+
+.text-box {
+    width: 100%;
+}

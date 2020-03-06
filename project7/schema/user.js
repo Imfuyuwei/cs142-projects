@@ -12,6 +12,8 @@ var userSchema = new mongoose.Schema({
     last_name: String,  // Last name of the user.
     location: String,    // Location  of the user.
     description: String,  // A brief user description
+    login_name: String, //login name 
+    password: String,
     occupation: String    // Occupation of the user.
 });
 
