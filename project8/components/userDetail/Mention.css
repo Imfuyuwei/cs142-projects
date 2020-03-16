@@ -1,0 +1,15 @@
+#mention-card {
+    margin: 8px;
+    font: 18;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100px;
+}
+
+#mention-photo {
+    height: auto;
+    width: auto;
+    max-height: 100px;
+    max-width: 200px;
+}

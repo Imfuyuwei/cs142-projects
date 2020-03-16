@@ -1,0 +1,68 @@
+Project #8 - Submission form
+
+Please fill in this form and submit it with your project #8.
+
+Enter no more than 5 user stories that you did for the assignment that you would like to be
+graded on. For each story include the following information:
+
+Story number and name: 2 - @mentions in comments
+Story points: 6
+Brief description to see the story in action: 
+For any photo, click on the comment box and type '@'. A list of names shoudl appear.
+If you press tab in the middle of writing someone's name or click on a name
+in the suggestions list, it will tag that person when you send the comment.
+
+Story number and name: 3 - visibility control on photos
+Story points: 4
+Brief description to see the story in action: Go to "upload photo"
+on the top bar, and click the option to specify permissions, and click the friends
+you'd like to allow to see your photo. upload a photo and then you can check and log  in
+as another user to see that the permissions are accurate.
+
+Story number and name: 6 - photo like votes
+Story points: 4
+Brief description to see the story in action:
+Go to a photo and press the like button.
+
+Story number and name: 7 - favorite lists of photos for users
+Story points: 6
+Brief description to see the story in action:
+click the heart on a photo. now go to "favorites" on the top bar, and 
+a page should pop up with all your favorites. press X on the top of a photo to delete it 
+from the favorites list. Click the photo to enlarge it. 
+
+Story number and name: 9 - tagging photos
+Story points: 10
+Brief description to see the story in action:
+For any photo, drag on top of the photo to create a white box. you can drag or resize the
+box with its handles. click on the text box that appears and start typing a name.
+It can autocomplete for you when you press enter. now, hover over the image and
+you will see the boxes appear. hover over a box and you can click the link to that user.
+
+Total Story Points: 30
+
+Marketing Video URL (ensure permissions are set to public viewing):
+https://youtu.be/SWA7NEsB7L8
+
+Is it OK with you if we post your Marketing Video URL on the class discussion forum?
+yes
+
+Any special instructions for Grading (should be easy to run app from new machine):
+
+
+************************************ Example *******************
+* As an example for if you did only story 5 your file would look like:
+* 
+* Story number and name:  5 - Activity Feed
+* Story points:  4
+* Brief description to see the story in action:
+* Push the button labeled Activity on the toolbar and view the 10 most recent activities of the
+* current user.
+* 
+* Total Story Points: 4
+* 
+* Marketing Video URL (ensure permissions are set to public viewing): http://www.youtube.com ---
+* 
+* Is it OK with you if we post your Marketing Video URL on the class discussion forum? Yes
+* 
+* Instructions for Grading (should be easy to run app from new machine): None

@@ -1,0 +1,72 @@
+.comment-input {
+    width: 100%;
+    height: 1.5em;
+    padding: 10px;
+    flex: 0 0 none;
+}
+
+.comment-time{
+    overflow: scroll;
+}
+
+#hover-for-name {
+    color: white;
+    font-size: 14;
+}
+
+.photo-card {
+    overflow: visible !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* padding: 20; */
+}
+
+.photo-card-content {
+    overflow: visible !important;
+    width: 90%
+    /* padding: 10; */
+}
+.MuiCardContent-root-330.photo-card-content {
+    width: 90%;
+}
+
+.mention-input-comment {
+    width: 100% !important;
+}
+
+.tag-input-photo{
+    width: 200px;
+    position: absolute;
+    z-index: 1;
+}
+
+input.mention-input-comment__input {
+    width: 100% !important;
+}
+
+.photo-card-comment-section {
+    width: 90%
+}
+
+.photo-card-display-comment {
+    overflow: scroll;
+}
+
+.my-react-crop > .ReactCrop__crop-selection{
+    border: 2px solid white;
+    box-shadow: 0 0 0 0;
+    position: absolute;
+}
+
+.ReactCrop.my-react-crop {
+    overflow: inherit;
+}
+
+.my-react-crop > .ReactCrop__drag-handle {
+    display: none;
+}
+.rect-tag-crop {
+    border: 2px solid white;
+    position: absolute;
+}
